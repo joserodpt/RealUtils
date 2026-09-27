@@ -15,7 +15,7 @@ Shared utilities for the Real* plugins (RealMines, RealHoppers, RealScoreboard, 
   - `GUIBuilder`: inventory screens of buttons, with close actions, title updates and slots that mirror another inventory.
   - `MaterialPickerGUI`: a searchable, paged chest to pick a material from.
   - `Pagination`: a list read a page at a time.
-- `joserodpt.realutils.text`: `Text` colours and sends messages with the plugin's colouring and prefix. `ForestColorAPI` adds hex colours and gradients on 1.16+.
+- `joserodpt.realutils.text`: `Text` colours and sends messages with the plugin's colouring and prefix. `ForestColorAPI` adds hex colours and gradients on 1.16+. `LanguageLine` is a line read from the language file, filled with `Placeholder`s into a `LanguageMessage`.
 - `joserodpt.realutils.item`: `Items` makes GUI items. `ItemStackSpringer` turns items into maps or JSON and back.
 - `joserodpt.realutils.config.YamlConfig`: a BoostedYAML file in the plugin's folder, optionally versioned and auto-updated.
 - `joserodpt.realutils.command.LampExceptionHandler`: sends Lamp's command errors through the plugin's own messages.
@@ -31,7 +31,7 @@ UniDialog is built for Java 21, while the plugins still run on older servers. No
 <dependency>
     <groupId>com.github.joserodpt</groupId>
     <artifactId>RealUtils</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
