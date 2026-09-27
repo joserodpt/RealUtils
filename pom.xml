@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- The coordinates JitPack gives the repo, so a local `mvn install` and a published tag
+         resolve to the same dependency. -->
+    <groupId>com.github.joserodpt</groupId>
+    <artifactId>RealUtils</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>RealUtils</name>
+    <description>Shared utilities for the Real* plugins: dialogs, prompts and GUI helpers.</description>
+
+    <properties>
+        <!-- The oldest the plugins build for. UniDialog itself needs Java 21, and is only ever
+             loaded on a server that has it. -->
+        <maven.compiler.release>16</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <unidialog.version>1.6.0</unidialog.version>
+        <adventure.version>4.26.1</adventure.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.1</version>
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>spigotmc-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+    <!-- No shading here: each plugin shades this library and relocates both it and UniDialog, so
+         every plugin keeps its own copy, its own dialogs and its own click actions. -->
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.14-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Only the platform-neutral interfaces are compiled against. -->
+        <dependency>
+            <groupId>io.github.projectunified</groupId>
+            <artifactId>uni-dialog-core</artifactId>
+            <version>${unidialog.version}</version>
+        </dependency>
+        <!-- Both backends, chosen between at runtime and loaded by name. They bring the Bungee and
+             Adventure layers with them; the server supplies the APIs those sit on. -->
+        <dependency>
+            <groupId>io.github.projectunified</groupId>
+            <artifactId>uni-dialog-spigot</artifactId>
+            <version>${unidialog.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.projectunified</groupId>
+            <artifactId>uni-dialog-paper</artifactId>
+            <version>${unidialog.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Sprites in dialog text, drawn by PaperText. Paper supplies Adventure, and nothing else
+             ever loads that class. -->
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-api</artifactId>
+            <version>${adventure.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-serializer-legacy</artifactId>
+            <version>${adventure.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>

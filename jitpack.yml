@@ -1,0 +1,4 @@
+# JitPack builds a tag on demand, so the Real* plugins can depend on
+# com.github.joserodpt:RealUtils:<tag> without a manual `mvn install`.
+jdk:
+  - openjdk21
