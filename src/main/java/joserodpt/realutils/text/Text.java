@@ -75,9 +75,10 @@ public final class Text {
         return color(prefix.get());
     }
 
-    /** The message with the plugin's prefix in front. */
+    /** The message with the plugin's prefix in front. A missing message sends just the prefix. */
     public static void send(final CommandSender sender, final String message) {
-        sender.sendMessage(color(prefix.get() + message));
+        final String before = prefix.get();
+        sender.sendMessage(color((before == null ? "" : before) + (message == null ? "" : message)));
     }
 
     /** The message on its own, without the prefix. */
