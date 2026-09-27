@@ -8,6 +8,9 @@ package joserodpt.realutils;
  * @link https://github.com/joserodpt/RealUtils
  */
 
+import joserodpt.realutils.text.Text;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.io.IOException;
@@ -62,6 +65,27 @@ public final class BuildInfo {
     public static String realUtilsVersion(final Plugin plugin) {
         final String version = read(plugin, "realutils.version");
         return version == null ? "unknown" : version;
+    }
+
+    /**
+     * What a plugin's main command answers with, the same in every Real* plugin:
+     *
+     * <pre>
+     * RealMines 1.9
+     * Built 27/09/2026 23:21:55
+     * RealUtils 1.3.0
+     * </pre>
+     *
+     * The build lines only go to the console; a player gets the name and version alone.
+     *
+     * @param name the plugin's name as it shows it, colours and all, e.g. {@code &fReal&9Mines}
+     */
+    public static void sendAbout(final CommandSender sender, final Plugin plugin, final String name) {
+        Text.sendRaw(sender, name + " &a" + plugin.getDescription().getVersion());
+        if (!(sender instanceof Player)) {
+            Text.sendRaw(sender, "Built &e" + time(plugin));
+            Text.sendRaw(sender, "RealUtils &e" + realUtilsVersion(plugin));
+        }
     }
 
     private static String read(final Plugin plugin, final String key) {
