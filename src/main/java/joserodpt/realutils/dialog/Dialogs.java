@@ -8,7 +8,7 @@ package joserodpt.realutils.dialog;
  * @link https://github.com/joserodpt/RealUtils
  */
 
-import org.bukkit.ChatColor;
+import joserodpt.realutils.text.Text;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -35,7 +35,8 @@ public final class Dialogs {
     private static boolean available = false;
     private static Plugin plugin;
     private static BooleanSupplier enabled = () -> true;
-    private static UnaryOperator<String> colorizer = text -> ChatColor.translateAlternateColorCodes('&', text);
+    /** {@link Text#color} unless set, so dialogs colour the same as the rest of the plugin. */
+    private static UnaryOperator<String> colorizer = Text::color;
 
     private static String confirmLabel = "&aConfirm";
     private static String cancelLabel = "&cCancel";
@@ -99,7 +100,7 @@ public final class Dialogs {
      * with hex colours passes its own colouring here.
      */
     public static void colorizer(final UnaryOperator<String> colorizer) {
-        Dialogs.colorizer = colorizer == null ? text -> ChatColor.translateAlternateColorCodes('&', text) : colorizer;
+        Dialogs.colorizer = colorizer == null ? Text::color : colorizer;
     }
 
     /** The buttons dialogs show when a screen does not name its own, usually from the plugin's language file. */
