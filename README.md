@@ -9,6 +9,7 @@ Shared utilities for the Real* plugins (RealMines, RealHoppers, RealScoreboard, 
   - `Dialogs`: setup and shutdown, the on/off switch (`useDialogs`), default button labels, and `confirm(...)` yes/no questions.
   - `DialogForm`: forms with text boxes, switches and sliders, plus item icons and inline sprites on Paper.
   - `DialogMenu`: a menu of buttons.
+  - `PagedDialogMenu`: a menu of a long list, a page at a time, with page turns and `(2/5)` after the title.
   - `SettingsDialog` + `SettingsStore`: a plugin's config as a menu of categories, each opening a form.
 - `joserodpt.realutils.input.PlayerInput`: asks a player to type something, in a dialog text box where the server has dialogs, otherwise in chat.
 - `joserodpt.realutils.gui`:

@@ -58,7 +58,7 @@ public final class Items {
                 meta.setDisplayName(Text.color(name));
             }
             if (lore != null) {
-                meta.setLore(Text.color(lore));
+                meta.setLore(lore(lore));
             }
             item.setItemMeta(meta);
         }
@@ -92,7 +92,7 @@ public final class Items {
         final ItemMeta meta = item.getItemMeta();
         if (meta != null) {
             meta.setDisplayName(Text.color(name));
-            meta.setLore(Text.color(lore));
+            meta.setLore(lore(lore));
             item.setItemMeta(meta);
         }
         return item;
@@ -121,10 +121,33 @@ public final class Items {
         }
         final List<String> lore = meta.hasLore() ? new ArrayList<>(meta.getLore()) : new ArrayList<>();
         lore.add("§9");
-        lore.addAll(Text.color(lines));
+        lore.addAll(lore(lines));
         meta.setLore(lore);
         copy.setItemMeta(meta);
         return copy;
+    }
+
+    /**
+     * Lore lines coloured, each grey unless it opens with a colour of its own. Minecraft shows lore
+     * in purple italics otherwise, and a line opening with only a format code such as {@code &l}
+     * gets the grey in front of it, so it stays grey and bold.
+     */
+    private static List<String> lore(final List<String> lines) {
+        final List<String> coloured = new ArrayList<>();
+        for (final String line : Text.color(lines)) {
+            coloured.add(line == null || line.isEmpty() || opensWithColour(line) ? line : "§7" + line);
+        }
+        return coloured;
+    }
+
+    /** Whether the codes a line opens with include a colour: 0-9, a-f, or a hex {@code §x}. */
+    private static boolean opensWithColour(final String line) {
+        for (int i = 0; i + 1 < line.length() && line.charAt(i) == '§'; i += 2) {
+            if ("0123456789abcdefx".indexOf(Character.toLowerCase(line.charAt(i + 1))) >= 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /** Every flag that hides tooltip detail, for GUI buttons. Read from the server so new ones apply too. */

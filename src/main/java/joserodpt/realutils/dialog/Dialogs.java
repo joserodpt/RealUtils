@@ -43,6 +43,8 @@ public final class Dialogs {
     private static String closeLabel = "&cClose";
     private static String backLabel = "&7Back";
     private static String saveLabel = "&aSave";
+    private static String previousPageLabel = "&6Previous page";
+    private static String nextPageLabel = "&aNext page";
 
     private Dialogs() {
     }
@@ -148,6 +150,16 @@ public final class Dialogs {
         return plugin;
     }
 
+    /** The page turns of a {@link PagedDialogMenu} that does not name its own. */
+    public static void pageLabels(final String previous, final String next) {
+        if (previous != null) {
+            previousPageLabel = previous;
+        }
+        if (next != null) {
+            nextPageLabel = next;
+        }
+    }
+
     static String color(final String text) {
         return text == null || text.isEmpty() ? "" : colorizer.apply(text);
     }
@@ -170,5 +182,13 @@ public final class Dialogs {
 
     static String saveLabel() {
         return color(saveLabel);
+    }
+
+    static String previousPageLabel() {
+        return previousPageLabel;
+    }
+
+    static String nextPageLabel() {
+        return nextPageLabel;
     }
 }
