@@ -21,6 +21,7 @@ Shared utilities for the Real* plugins (RealMines, RealHoppers, RealScoreboard, 
 - `joserodpt.realutils.config.YamlConfig`: a BoostedYAML file in the plugin's folder, optionally versioned and auto-updated.
 - `joserodpt.realutils.command.LampExceptionHandler`: sends Lamp's command errors through the plugin's own messages.
 - `joserodpt.realutils.update.UpdateChecker`: reads the latest version off SpigotMC.
+- `joserodpt.realutils.BuildInfo`: when the plugin's jar was built, from a `build.properties` Maven stamps at build time.
 
 Every dialog shows nothing unless `Dialogs.isSupported()`. Screens keep their chat or inventory version for servers without dialogs, and for when `useDialogs` is off.
 
@@ -32,7 +33,7 @@ UniDialog is built for Java 21, while the plugins still run on older servers. No
 <dependency>
     <groupId>com.github.joserodpt</groupId>
     <artifactId>RealUtils</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
